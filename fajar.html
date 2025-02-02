@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Donasi</title>
+    <style>
+        /* Reset Umum */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f9fc;
+            color: #333;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(to right, #3a7bd5, #3a6073);
+            padding: 15px 30px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57;
+            transform: scale(1.1);
+        }
+
+        /* Bagian Home */
+        #home {
+            background: #3a7bd5;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        #home h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        #home p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        #home button {
+            background: #ff9800;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        #home button:hover {
+            background: #e68a00;
+            transform: scale(1.1);
+        }
+
+        #home img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Bagian Donasi */
+        #donate {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        #donate form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #donate label {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        #donate input,
+        #donate select,
+        #donate button {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        #donate input:focus,
+        #donate select:focus {
+            border-color: #3a7bd5;
+            outline: none;
+        }
+
+        #donate select {
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        #donate button {
+            background: #3a7bd5;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        #donate button:hover {
+            background: #2a579c;
+        }
+
+        #category-image {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #category-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #category-image p {
+            margin-top: 10px;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        #success-message {
+            display: none;
+            background: #e8f5e9;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #success-message img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        #success-message h3 {
+            font-size: 2rem;
+            color: #388e3c;
+        }
+
+        #success-message p {
+            color: #4caf50;
+            font-size: 1.2rem;
+        }
+
+        #success-message button {
+            background: #ff9800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        #success-message button:hover {
+            background: #e68a00;
+        }
+
+        #contact {
+            background: #fff;
+            padding: 50px;
+            text-align: center;
+            margin: 50px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #contact h2 {
+            font-size: 2.5rem;
+            color: #3a7bd5;
+        }
+
+        #contact p {
+            font-size: 1.2rem;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        #contact .phone-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        footer {
+            background: linear-gradient(to right, #3a6073, #3a7bd5);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Platform Donasi</div>
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#donate">Donasi</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Jadilah Perubahan Hari Ini</h1>
+        <p>Kontribusi Anda dapat mengubah hidup. Bergabunglah bersama kami untuk membuat dunia menjadi tempat yang lebih baik!</p>
+        <button onclick="scrollToSection('donate')">Donasi Sekarang</button>
+    </section>
+
+    <section id="donate">
+        <h2>Lakukan Donasi</h2>
+        <form id="donation-form">
+            <label for="name">Nama Anda:</label>
+            <input type="text" id="name" placeholder="Masukkan nama Anda" required>
+
+            <label for="email">Email Anda:</label>
+            <input type="email" id="email" placeholder="Masukkan email Anda" required>
+
+            <label for="category">Pilih Kategori Donasi:</label>
+            <select id="category" required>
+                <option value="" disabled selected>Pilih tujuan donasi</option>
+                <option value="palestine">Dukung Palestina</option>
+                <option value="flood">Bantuan Banjir</option>
+                <option value="orphanage">Bantuan Panti Asuhan</option>
+                <option value="general">Bantuan Umum</option>
+            </select>
+
+            <label for="amount">Jumlah Donasi (USD):</label>
+            <input type="number" id="amount" placeholder="Masukkan jumlah" required>
+
+            <button type="submit">Donasi Sekarang</button>
+        </form>
+
+        <div id="category-image">
+            <img src="https://img.freepik.com/free-vector/gradient-geometric-background_23-2148809183.jpg" alt="" id="category-img">
+            <p id="category-text"></p>
+        </div>
+    </section>
+
+    <div id="success-message">
+        <audio id="success-audio">
+            <source src="c:\Users\WINDOWS 10\Downloads\Twitch Alert Sound Effect.mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung audio tag.
+        </audio>
+        <img src="https://img.freepik.com/free-vector/computer-with-board-online-charity-donation_24877-54500.jpg" alt="Sukses">
+        <h3>Terima Kasih!</h3>
+        <p>Dear <span id="donor-name"></span>, donasi Anda sebesar <span id="donation-amount"></span> untuk <span id="donation-category"></span> telah berhasil diproses.</p>
+        <div id="success-details">
+            <p><strong>Nama:</strong> <span id="detail-name"></span></p>
+            <p><strong>Email:</strong> <span id="detail-email"></span></p>
+            <p><strong>Kategori:</strong> <span id="detail-category"></span></p>
+            <p><strong>Jumlah:</strong> <span id="detail-amount"></span></p>
+        </div>
+        <button id="back-button">Kembali</button>
+    </div>
+
+    <section id="contact">
+        <h2>Hubungi Kami</h2>
+        <p>Jika Anda memiliki pertanyaan atau membutuhkan bantuan, jangan ragu untuk menghubungi kami!</p>
+        <div class="phone-number">+62 812 3456 7890</div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Platform Donasi | Hak cipta dilindungi.</p>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        const categorySelect = document.getElementById('category');
+        const categoryImage = document.getElementById('category-image');
+        const categoryImg = document.getElementById('category-img');
+        const categoryText = document.getElementById('category-text');
+        const donationForm = document.getElementById('donation-form');
+        const successMessage = document.getElementById('success-message');
+        const backButton = document.getElementById('back-button');
+        const successAudio = document.getElementById('success-audio');
+
+        donationForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const category = document.getElementById('category').options[document.getElementById('category').selectedIndex].text;
+            const amount = document.getElementById('amount').value;
+            document.getElementById('donor-name').textContent = name;
+            document.getElementById('donation-amount').textContent = `$${amount}`;
+            document.getElementById('donation-category').textContent = category;
+            document.getElementById('detail-name').textContent = name;
+            document.getElementById('detail-email').textContent = email;
+            document.getElementById('detail-category').textContent = category;
+            document.getElementById('detail-amount').textContent = `$${amount}`;
+            successMessage.style.display = 'block';
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Putar audio sukses
+            successAudio.play();
+        });
+
+        backButton.addEventListener('click', () => {
+            successMessage.style.display = 'none';
+            donationForm.reset();
+            categoryImage.style.display = 'none';
+            donationForm.scrollIntoView({ behavior: 'smooth' });
+        });
+   
+
+        categorySelect.addEventListener('change', function () {
+            const selectedValue = categorySelect.value;
+            categoryImage.style.display = 'block';
+            switch (selectedValue) {
+                case 'palestine':
+                    categoryImg.src = 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Palestine.svg';
+                    categoryText.textContent = 'Donasi Anda akan membantu Palestina.';
+                    break;
+                case 'flood':
+                    categoryImg.src = 'https://img.freepik.com/free-photo/flooded-area-due-hurricane-heavy-rain_1203-6327.jpg';
+                    categoryText.textContent = 'Donasi Anda akan digunakan untuk bantuan korban banjir.';
+                    break;
+                case 'orphanage':
+                    categoryImg.src = 'https://img.freepik.com/free-photo/happy-group-children-carrying-teddy-bear-school_23-2149456707.jpg';
+                    categoryText.textContent = 'Donasi Anda mendukung anak-anak di panti asuhan.';
+                    break;
+                case 'general':
+                    categoryImg.src = 'https://img.freepik.com/free-photo/people-hand-volunteer-activity_53876-99574.jpg';
+                    categoryText.textContent = 'Donasi Anda untuk bantuan umum.';
+                    break;
+                default:
+                    categoryImage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
